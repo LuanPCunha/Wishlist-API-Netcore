@@ -6,11 +6,11 @@ namespace Wishlist.Infrastructure.Persistence.Core
 {
     public class Context : DbContext
     {
-        public Context(DbContextOptions<Context> options ) : base(options) { }
+        public Context(DbContextOptions<Context> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-                       
+
             builder.UseSerialColumns();
         }
         public DbSet<Product> Products { get; set; }

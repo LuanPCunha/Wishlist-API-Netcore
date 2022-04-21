@@ -37,6 +37,16 @@ namespace Wishlist.Infrastructure.Persistence.Repositories
         {
             return _context.Users.AsNoTracking().FirstOrDefault(p => p.Email == email);
         }
+        
+        public bool EmailInUse(string email)
+        {
+            return _context.Users.AsNoTracking().Any(p => p.Email == email);
+        }
+
+        public User GetUserById(Guid id)
+        {
+            return _context.Users.AsNoTracking().FirstOrDefault(p => p.Id == id);
+        }
 
         public void CreateUser(Guid id, string name, string email, string password)
         {
@@ -89,5 +99,18 @@ namespace Wishlist.Infrastructure.Persistence.Repositories
 
             return jwt;
         }
+
+        public void Update(User user)
+        {
+            _context.Users.Update(user);
+            _context.SaveChanges();
+        }
+
+        public void Remove(User user)
+        {
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+        }
+
     }
 }

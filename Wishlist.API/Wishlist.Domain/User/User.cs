@@ -33,12 +33,10 @@ namespace Wishlist.Domain.User
             //ValidateObligatoryInformation();
         }
 
-        public void Alterar(string name, string email, byte[] passwordSalt, byte[] passwordHash)
+        public void Update(string name, string email)
         {
             Name = name;
             Email = email;
-            PasswordSalt = passwordSalt;
-            PasswordHash = passwordHash;
 
             //ValidateObligatoryInformation();
         }
@@ -60,12 +58,12 @@ namespace Wishlist.Domain.User
                 throw new DomainException(ExceptionCodes.NomeDoProdutoNaoInformado);
             }
 
-            if (PasswordSalt != null && PasswordSalt.Length > 0)
+            if (PasswordSalt == null)
             {
                 throw new DomainException(ExceptionCodes.NomeDoProdutoNaoInformado);
             }
 
-            if (PasswordHash != null && PasswordHash.Length > 0)
+            if (PasswordHash == null)
             {
                 throw new DomainException(ExceptionCodes.NomeDoProdutoNaoInformado);
             }

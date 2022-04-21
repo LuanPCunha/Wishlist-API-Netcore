@@ -18,6 +18,13 @@ namespace Wishlist.API.Controllers
         [HttpPost("register"), AllowAnonymous]
         public async Task<ActionResult> Register(UserDto request)
         {
+            var emailInUse = _repository.EmailInUse(request.Email);
+
+            if (emailInUse)
+            {
+                return BadRequest("Email alread in use.");
+            }
+
             _repository.CreateUser(request.Id, request.Name, request.Email, request.Password);
 
             return Ok();
