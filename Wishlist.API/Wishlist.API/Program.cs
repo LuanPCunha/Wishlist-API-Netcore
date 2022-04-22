@@ -6,6 +6,7 @@ using Swashbuckle.AspNetCore.Filters;
 using System.Text;
 using Wishlist.Domain.Product;
 using Wishlist.Domain.User;
+using Wishlist.Domain.UserProductList;
 using Wishlist.Infrastructure.Persistence.Core;
 using Wishlist.Infrastructure.Persistence.Repositories;
 
@@ -18,6 +19,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IUserProductListRepository, UserProductListRepository>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen(options =>
 {

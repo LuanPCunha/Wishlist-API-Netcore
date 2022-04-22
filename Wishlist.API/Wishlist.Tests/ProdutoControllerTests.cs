@@ -14,7 +14,7 @@ namespace Wishlist.Tests
         public WishlistControllerTests()
         {
             _repository = Substitute.For<IProductRepository>();
-            _sut = new WishlistController(_repository); 
+            //_sut = new WishlistController(_repository); 
         }
 
         //[Test]

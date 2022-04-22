@@ -4,17 +4,9 @@ using Wishlist.Domain.Core;
 
 namespace Wishlist.Domain.Product
 {
-    public interface IProductRepository : IDisposable
+    public interface IProductRepository
     {
-        Product ObterPorId(Guid id);
 
-        Pagination<Product> Pesquisar(string nome, int page = 0, int limit = 100);
-
-        void Adicionar(Product product);
-
-        void Alterar(Product product);
-
-        void Remover(Product product);
 
     }
 }

@@ -6,90 +6,68 @@ namespace Wishlist.Domain.Product
 {
     public class Product : IEquatable<Product>
     {
-        #region Atributos
-
-        private string _nome;
-        private decimal _valorDeVenda;
-
-        #endregion
 
         #region Propriedades
 
         public Guid Id { get; private set; }
 
-        public string Nome
-        {
-            get
-            {
-                return _nome;
-            }
-            private set
-            {
-                if (value?.Length > 300)
-                {
-                    throw new DomainException(ExceptionCodes.NomeDoProdutoComMaisDe300Caracteres);
-                }
+        public string Title { get; private set; }
 
-                _nome = value;
-            }
-        }
+        public string Image { get; private set; }
 
-        public decimal ValorDeVenda
-        {
-            get
-            {
-                return _valorDeVenda;
-            }
-            private set
-            {
-                var newValue = decimal.Round(value, 2, MidpointRounding.AwayFromZero);
+        public decimal Price { get; private set; }
 
-                if (newValue.Size() > 12)
-                {
-                    throw new DomainException(ExceptionCodes.ValorDeVendaDoProdutoComMaisDe10Digitos);
-                }
+        public decimal ReviewScore { get; private set; }
 
-                _valorDeVenda = newValue;
-            }
-
-        }
-
-        public string Imagem { get; private set; }
 
         #endregion
 
         private Product() { }
 
-        public Product(Guid id, string title, string imagem, decimal price, decimal? reviewScore) 
+        public Product(Guid id, string title, string imagem, decimal price, decimal? reviewScore)
         {
             Id = id;
-           
+            Title = title;
+            Image = imagem;
+            Price = price;
+            ReviewScore = reviewScore.Value;
 
-            ValidarInformacoesObrigatorias();
+            Validate();
         }
 
-        public void Alterar(string nome, decimal valor, string imagem)
-        {
-            Nome = nome;
-            ValorDeVenda = valor;
-            Imagem = imagem;
+        //public void Alterar(string title, string imagem, decimal price, decimal? reviewScore)
+        //{
+        //    Title = title;
+        //    Image = imagem;
+        //    Price = price;
+        //    ReviewScore = reviewScore.Value;
 
-            ValidarInformacoesObrigatorias();
-        }
+        //    Validate();
+        //}
 
-        private void ValidarInformacoesObrigatorias()
+        private void Validate()
         {
             if (Id == Guid.Empty)
             {
                 throw new DomainException(ExceptionCodes.IdDoProdutoNaoInformado);
             }
 
-            if (string.IsNullOrEmpty(Nome))
+            if (string.IsNullOrEmpty(Title))
             {
                 throw new DomainException(ExceptionCodes.NomeDoProdutoNaoInformado);
             }
 
-            if (ValorDeVenda <= 0)
+            if (string.IsNullOrEmpty(Image))
+            {
+                throw new DomainException(ExceptionCodes.NomeDoProdutoNaoInformado);
+            }
+
+            if (Price <= 0)
+            {
+                throw new DomainException(ExceptionCodes.ValorDeVendaDoProdutoNegativa);
+            }
+
+            if (ReviewScore <= 0)
             {
                 throw new DomainException(ExceptionCodes.ValorDeVendaDoProdutoNegativa);
             }
