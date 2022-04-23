@@ -30,8 +30,8 @@ namespace Wishlist.API.Controllers
         [HttpGet]
         public ActionResult GetWishList(int page = 0, int limit = 100)
         {
-            var userId = _userRepository.GetLogedUserByEmail().Id;
-
+            //var userId = _userRepository.GetLogedUserByEmail().Id;
+            var userId = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa6");
             if (userId == Guid.Empty) return NotFound();
 
             return Ok(_clientRepository.GetWishList(userId, page, limit));
@@ -40,8 +40,8 @@ namespace Wishlist.API.Controllers
         [HttpPost]
         public ActionResult Favorite(Guid productId)
         {
-            var userId = _userRepository.GetLogedUserByEmail().Id;
-
+            //var userId = _userRepository.GetLogedUserByEmail().Id;
+            var userId = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa6");
             if (userId == Guid.Empty) return NotFound();
 
             _clientRepository.Save(userId, productId);
