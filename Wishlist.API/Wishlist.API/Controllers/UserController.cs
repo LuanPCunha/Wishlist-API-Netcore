@@ -15,23 +15,25 @@ namespace Wishlist.API.Controllers
             _repository = repository;
         }
 
-        [HttpGet, Authorize]
+        [HttpGet, Authorize(Roles = "Client")]
         public ActionResult<UserDto> Get(string email)
         {
             var user = _repository.GetUserByEmail(email);
-            
+
+            if (user == null) return NotFound();
+
             return Ok(user);
 
         }
 
-        [HttpPut, Authorize, DisableRequestSizeLimit]
-        public async Task<ActionResult> Update(UserDto request)
+        [HttpPut, Authorize(Roles = "Client")]
+        public ActionResult Update(UserDto request)
         {
             var user = _repository.GetUserById(request.Id);
 
             if (user == null) return NotFound();
 
-            user.Update(request.Name,request.Email);
+            user.Update(request.Name, request.Email);
 
             _repository.Update(user);
 
@@ -39,8 +41,8 @@ namespace Wishlist.API.Controllers
         }
 
 
-        [HttpDelete("{id}"), Authorize]
-        public async Task<ActionResult> Remove(Guid id)
+        [HttpDelete("{id}"), Authorize(Roles = "Client")]
+        public ActionResult Remove(Guid id)
         {
             var user = _repository.GetUserById(id);
 

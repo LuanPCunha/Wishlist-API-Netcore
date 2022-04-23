@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Wishlist.Domain.Core;
 
-// Falta adicionar validações de nome e email.
 namespace Wishlist.Domain.User
 {
     public class User : IEquatable<User>
@@ -17,7 +16,7 @@ namespace Wishlist.Domain.User
         public byte[] PasswordSalt { get; private set; }
 
         public byte[] PasswordHash { get; private set; }
-
+ 
         #endregion
 
         private User() { }
@@ -30,7 +29,7 @@ namespace Wishlist.Domain.User
             PasswordSalt = passwordSalt;
             PasswordHash = passwordHash;
 
-            //ValidateObligatoryInformation();
+            ValidateObligatoryInformation();
         }
 
         public void Update(string name, string email)
@@ -38,34 +37,34 @@ namespace Wishlist.Domain.User
             Name = name;
             Email = email;
 
-            //ValidateObligatoryInformation();
+            ValidateObligatoryInformation();
         }
 
         private void ValidateObligatoryInformation()
         {
             if (Id == Guid.Empty)
             {
-                throw new DomainException(ExceptionCodes.IdDoProdutoNaoInformado);
+                throw new DomainException(ExceptionCodes.UserIdNotInformed);
             }
 
             if (string.IsNullOrEmpty(Name))
             {
-                throw new DomainException(ExceptionCodes.NomeDoProdutoNaoInformado);
+                throw new DomainException(ExceptionCodes.UserNameNotInformed);
             }
 
             if (string.IsNullOrEmpty(Email))
             {
-                throw new DomainException(ExceptionCodes.NomeDoProdutoNaoInformado);
+                throw new DomainException(ExceptionCodes.UserEmailNotInformed);
             }
 
             if (PasswordSalt == null)
             {
-                throw new DomainException(ExceptionCodes.NomeDoProdutoNaoInformado);
+                throw new DomainException(ExceptionCodes.UserPasswordSaltNotInformed);
             }
 
             if (PasswordHash == null)
             {
-                throw new DomainException(ExceptionCodes.NomeDoProdutoNaoInformado);
+                throw new DomainException(ExceptionCodes.UserPasswordHashNotInformed);
             }
 
         }

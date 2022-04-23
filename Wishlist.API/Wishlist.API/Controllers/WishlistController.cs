@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Wishlist.API.DTO;
+using Wishlist.Domain.Client;
 using Wishlist.Domain.Product;
 using Wishlist.Domain.User;
 using Wishlist.Domain.UserProductList;
@@ -10,45 +11,29 @@ namespace Wishlist.API.Controllers
     [Route("api/v1/[controller]")]
     public class WishlistController : ControllerBase
     {
-        private readonly IUserRepository _userrepository;
-        private readonly IUserProductListRepository _userProductListRepository;
+        private readonly IProductRepository _productRepository;
+        private readonly IClientRepository _clientRepository;
 
-        public WishlistController(IUserRepository userrepository, IUserProductListRepository userProductListRepository)
-        {
-            _userrepository = userrepository;
-            _userProductListRepository = userProductListRepository;
-
+        public WishlistController(IProductRepository productRepository,IClientRepository clientRepository)
+        { 
+            _productRepository = productRepository;
+            _clientRepository = clientRepository;
 
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(Guid id)
+        public ActionResult Get(Guid id)
         {
-            //return Ok(_repository.ObterPorId(id));
+            return Ok(_productRepository.GetProduct(id));
+        }
+
+        [HttpPost()]
+        public ActionResult Favorite(Guid id)
+        {
+            _clientRepository.Save(id);
             return Ok();
         }
 
 
-        [HttpPost, DisableRequestSizeLimit]
-        public IActionResult AddToWishlist(ProductDTO dto)
-        {
-            var aggregate = new Product(dto.Id, dto.Title, dto.Image, dto.Price, dto.ReviewScore);
-
-            //_repository.Adicionar(aggregate);
-
-            return Ok();
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult RemoveFromWishlist(Guid id)
-        {
-            //var aggregate = _repository.ObterPorId(id);
-
-            //if (aggregate == null) return NotFound();
-
-            //_repository.Remover(aggregate);
-
-            return Ok();
-        }
     }
 }

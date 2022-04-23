@@ -12,32 +12,32 @@ namespace Wishlist.Infrastructure.Persistence.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly Context _context;
         private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserRepository(IHttpContextAccessor httpContextAccessor, IConfiguration configuration, Context context)
+        public UserRepository(IConfiguration configuration, Context context, IHttpContextAccessor httpContextAccessor)
         {
-            _httpContextAccessor = httpContextAccessor;
             _context = context;
             _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
         }
 
-        public string GetName()
+        public User GetLogedUserEmail()
         {
             var result = string.Empty;
             if (_httpContextAccessor.HttpContext != null)
             {
-                result = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
+                result = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Email);
             }
-            return result;
+            return GetUserByEmail(result);
         }
 
         public User GetUserByEmail(string email)
         {
             return _context.Users.AsNoTracking().FirstOrDefault(p => p.Email == email);
         }
-        
+
         public bool EmailInUse(string email)
         {
             return _context.Users.AsNoTracking().Any(p => p.Email == email);

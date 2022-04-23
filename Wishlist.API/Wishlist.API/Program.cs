@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
+using Wishlist.Domain.Client;
 using Wishlist.Domain.Product;
 using Wishlist.Domain.User;
 using Wishlist.Domain.UserProductList;
@@ -13,14 +14,20 @@ using Wishlist.Infrastructure.Persistence.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNameCaseInsensitive = false;
+});
 
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IUserProductListRepository, UserProductListRepository>();
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
+
 builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("Wishlist-API", new OpenApiSecurityScheme
@@ -33,6 +40,7 @@ builder.Services.AddSwaggerGen(options =>
 
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -45,6 +53,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = false
         };
     });
+
+
+builder.Services.AddHttpClient<IProductRepository, ProductRepository>(c =>
+{
+    c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ProductAPI"));
+});
+
 
 builder.Services.AddDbContext<Context>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("ProductDb")
                                             , b => b.MigrationsAssembly("Wishlist.Infrastructure")));
@@ -67,3 +82,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
