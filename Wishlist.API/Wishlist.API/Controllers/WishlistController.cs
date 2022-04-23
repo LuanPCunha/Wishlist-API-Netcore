@@ -21,27 +21,23 @@ namespace Wishlist.API.Controllers
             _userRepository = userRepository;
         }
 
-        [HttpGet("{id}")]
-        public ActionResult Get(Guid id)
-        {
-            return Ok(_productRepository.GetProduct(id));
-        }
 
-        [HttpGet]
-        public ActionResult GetWishList(int page = 0, int limit = 100)
+        [HttpGet("GetWishList")]
+        public ActionResult GetWishList(string email, int page = 0, int limit = 100)
         {
             //var userId = _userRepository.GetLogedUserByEmail().Id;
-            var userId = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa6");
+            var userId = _userRepository.GetUserByEmail(email).Id;
             if (userId == Guid.Empty) return NotFound();
 
             return Ok(_clientRepository.GetWishList(userId, page, limit));
         }
 
-        [HttpPost]
-        public ActionResult Favorite(Guid productId)
+        [HttpPost("Favorite")]
+        public ActionResult Favorite(string email, Guid productId)
         {
             //var userId = _userRepository.GetLogedUserByEmail().Id;
-            var userId = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa6");
+            var userId = _userRepository.GetUserByEmail(email).Id;
+
             if (userId == Guid.Empty) return NotFound();
 
             _clientRepository.Save(userId, productId);
@@ -49,10 +45,11 @@ namespace Wishlist.API.Controllers
             return Ok();
         }
 
-        [HttpDelete]
-        public ActionResult Unfavorite(Guid productId)
+        [HttpDelete("Unfavorite")]
+        public ActionResult Unfavorite(string email, Guid productId)
         {
-            var userId = _userRepository.GetLogedUserByEmail().Id;
+            //var userId = _userRepository.GetLogedUserByEmail().Id;
+            var userId = _userRepository.GetUserByEmail(email).Id;
 
             var wishlistItem = _clientRepository.GetProductByUser(userId, productId);
 

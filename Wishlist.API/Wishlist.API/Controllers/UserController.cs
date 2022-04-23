@@ -16,7 +16,7 @@ namespace Wishlist.API.Controllers
             _repository = repository;
         }
 
-        [HttpGet]
+        [HttpGet("GetUser")]
         public ActionResult<UserDto> Get(string email)
         {
             var user = _repository.GetUserByEmail(email);
@@ -27,9 +27,16 @@ namespace Wishlist.API.Controllers
 
         }
 
-        [HttpPut]
+        [HttpPut("Update")]
         public ActionResult Update(UserDto request)
         {
+            var emailInUse = _repository.EmailInUse(request.Email);
+
+            if (emailInUse)
+            {
+                return BadRequest("Email alread in use.");
+            }
+
             var user = _repository.GetUserById(request.Id);
 
             if (user == null) return NotFound();
