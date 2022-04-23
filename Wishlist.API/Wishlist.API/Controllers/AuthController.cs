@@ -5,8 +5,8 @@ using Wishlist.Domain.User;
 
 namespace Wishlist.API.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class AuthController : ControllerBase
     {
         private readonly IUserRepository _repository;

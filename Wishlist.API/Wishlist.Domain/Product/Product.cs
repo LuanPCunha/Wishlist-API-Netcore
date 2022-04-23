@@ -38,27 +38,27 @@ namespace Wishlist.Domain.Product
         {
             if (Id == Guid.Empty)
             {
-                throw new DomainException(ExceptionCodes.IdDoProdutoNaoInformado);
+                throw new DomainException(ExceptionCodes.ProductIdNotInformed);
             }
 
             if (string.IsNullOrEmpty(Title))
             {
-                throw new DomainException(ExceptionCodes.NomeDoProdutoNaoInformado);
+                throw new DomainException(ExceptionCodes.ProductTitleNotInformed);
             }
 
             if (string.IsNullOrEmpty(Image))
             {
-                throw new DomainException(ExceptionCodes.NomeDoProdutoNaoInformado);
+                throw new DomainException(ExceptionCodes.ProductImageNotInformed);
             }
 
             if (Price <= 0)
             {
-                throw new DomainException(ExceptionCodes.ValorDeVendaDoProdutoNegativa);
+                throw new DomainException(ExceptionCodes.ProductPriceNotInformed);
             }
 
-            if (ReviewScore !=null && ReviewScore < 0)
+            if (ReviewScore != null && ReviewScore < 0)
             {
-                throw new DomainException(ExceptionCodes.ValorDeVendaDoProdutoNegativa);
+                throw new DomainException(ExceptionCodes.ProductReviewScoreNotInformed);
             }
         }
 

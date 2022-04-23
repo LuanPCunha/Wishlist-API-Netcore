@@ -2,6 +2,8 @@
 {
     public interface IUserRepository
     {
+        User GetLogedUserByEmail();
+
         User GetUserByEmail(string email);
 
         bool EmailInUse(string email);

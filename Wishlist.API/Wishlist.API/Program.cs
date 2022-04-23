@@ -1,3 +1,4 @@
+global using Wishlist.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -7,9 +8,7 @@ using System.Text;
 using Wishlist.Domain.Client;
 using Wishlist.Domain.Product;
 using Wishlist.Domain.User;
-using Wishlist.Domain.UserProductList;
 using Wishlist.Infrastructure.Persistence.Core;
-using Wishlist.Infrastructure.Persistence.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 

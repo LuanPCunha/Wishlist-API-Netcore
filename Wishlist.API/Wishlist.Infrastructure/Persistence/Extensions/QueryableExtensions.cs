@@ -14,9 +14,9 @@ namespace Wishlist.Infrastructure.Persistence.Extensions
             return new Pagination<T>
             {
                 Total = count,
-                Limite = limit,
-                Pagina = page,
-                Itens = items
+                Limit = limit,
+                Page = page,
+                Items = items
             };
         }
     }

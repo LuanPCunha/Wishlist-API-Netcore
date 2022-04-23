@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Wishlist.API.DTO;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Wishlist.Domain.Client;
 using Wishlist.Domain.Product;
 using Wishlist.Domain.User;
-using Wishlist.Domain.UserProductList;
 
 namespace Wishlist.API.Controllers
 {
@@ -13,12 +12,13 @@ namespace Wishlist.API.Controllers
     {
         private readonly IProductRepository _productRepository;
         private readonly IClientRepository _clientRepository;
+        private readonly IUserRepository _userRepository;
 
-        public WishlistController(IProductRepository productRepository,IClientRepository clientRepository)
-        { 
+        public WishlistController(IProductRepository productRepository, IClientRepository clientRepository, IUserRepository userRepository)
+        {
             _productRepository = productRepository;
             _clientRepository = clientRepository;
-
+            _userRepository = userRepository;
         }
 
         [HttpGet("{id}")]
@@ -27,13 +27,41 @@ namespace Wishlist.API.Controllers
             return Ok(_productRepository.GetProduct(id));
         }
 
-        [HttpPost()]
-        public ActionResult Favorite(Guid id)
+        [HttpGet]
+        public ActionResult GetWishList(int page = 0, int limit = 100)
         {
-            _clientRepository.Save(id);
+            var userId = _userRepository.GetLogedUserByEmail().Id;
+
+            if (userId == Guid.Empty) return NotFound();
+
+            return Ok(_clientRepository.GetWishList(userId, page, limit));
+        }
+
+        [HttpPost]
+        public ActionResult Favorite(Guid productId)
+        {
+            var userId = _userRepository.GetLogedUserByEmail().Id;
+
+            if (userId == Guid.Empty) return NotFound();
+
+            _clientRepository.Save(userId, productId);
+
             return Ok();
         }
 
+        [HttpDelete]
+        public ActionResult Unfavorite(Guid productId)
+        {
+            var userId = _userRepository.GetLogedUserByEmail().Id;
+
+            var wishlistItem = _clientRepository.GetProductByUser(userId, productId);
+
+            if (wishlistItem == null) return NotFound();
+
+            _clientRepository.Remove(wishlistItem);
+
+            return Ok();
+        }
 
     }
 }

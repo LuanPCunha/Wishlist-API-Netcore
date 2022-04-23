@@ -10,12 +10,13 @@ namespace Wishlist.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _repository;
+
         public UserController(IUserRepository repository)
         {
             _repository = repository;
         }
 
-        [HttpGet, Authorize(Roles = "Client")]
+        [HttpGet]
         public ActionResult<UserDto> Get(string email)
         {
             var user = _repository.GetUserByEmail(email);
@@ -26,7 +27,7 @@ namespace Wishlist.API.Controllers
 
         }
 
-        [HttpPut, Authorize(Roles = "Client")]
+        [HttpPut]
         public ActionResult Update(UserDto request)
         {
             var user = _repository.GetUserById(request.Id);
@@ -41,7 +42,7 @@ namespace Wishlist.API.Controllers
         }
 
 
-        [HttpDelete("{id}"), Authorize(Roles = "Client")]
+        [HttpDelete("{id}")]
         public ActionResult Remove(Guid id)
         {
             var user = _repository.GetUserById(id);

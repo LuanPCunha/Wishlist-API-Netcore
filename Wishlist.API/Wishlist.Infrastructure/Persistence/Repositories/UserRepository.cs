@@ -23,7 +23,7 @@ namespace Wishlist.Infrastructure.Persistence.Repositories
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public User GetLogedUserEmail()
+        public User GetLogedUserByEmail()
         {
             var result = string.Empty;
             if (_httpContextAccessor.HttpContext != null)

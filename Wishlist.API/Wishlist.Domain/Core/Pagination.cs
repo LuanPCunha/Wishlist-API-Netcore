@@ -8,12 +8,12 @@ namespace Wishlist.Domain.Core
     {
         public Pagination()
         {
-            Itens = new List<T>();
+            Items = new List<T>();
         }
 
         public int Total { get; set; }
-        public int? Pagina { get; set; }
-        public int? Limite { get; set; }
-        public IEnumerable<T> Itens { get; set; }
+        public int? Page { get; set; }
+        public int? Limit { get; set; }
+        public IEnumerable<T> Items { get; set; }
     }
 }
