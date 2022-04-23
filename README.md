@@ -56,7 +56,7 @@ $ Update-Database
 
 Em seguida basta rodar o projeto Wishlist.API. que automaticamente irá subir uma versão da aplicação;
 
-## :Four: Melhorias e Considerações Técnicas
+## :four: Melhorias e Considerações Técnicas
 
 O desafio foi implementado como solicitado nos requisitos pedidos. Porém gostaria de registrar observações:
 
