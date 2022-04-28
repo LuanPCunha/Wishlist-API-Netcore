@@ -22,7 +22,7 @@ namespace Wishlist.API.Controllers
         }
 
 
-        [HttpGet("GetWishList")]
+        [HttpGet("GetWishList"), Authorize]
         public ActionResult GetWishList(string email, int page = 0, int limit = 100)
         {
             //var userId = _userRepository.GetLogedUserByEmail().Id;

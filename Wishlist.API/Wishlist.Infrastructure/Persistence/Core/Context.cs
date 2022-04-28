@@ -2,7 +2,6 @@
 using Wishlist.Domain.Client;
 using Wishlist.Domain.Product;
 using Wishlist.Domain.User;
-using Wishlist.Domain.UserProductList;
 
 namespace Wishlist.Infrastructure.Persistence.Core
 {
