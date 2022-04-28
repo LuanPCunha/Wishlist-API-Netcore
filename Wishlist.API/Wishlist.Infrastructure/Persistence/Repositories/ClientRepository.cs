@@ -1,12 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using Wishlist.Domain.User;
+﻿using Microsoft.EntityFrameworkCore;
 using Wishlist.Infrastructure.Persistence.Core;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.Extensions.Configuration;
 using Wishlist.Domain.Client;
 using Wishlist.Domain.Core;
 using Wishlist.Infrastructure.Persistence.Extensions;
@@ -32,7 +25,6 @@ namespace Wishlist.Infrastructure.Persistence.Repositories
             _context.Clients.Add(client);
             _context.SaveChanges();
         }
-
 
         public Client GetProductByUser(Guid userId, Guid productId)
         {
@@ -62,7 +54,7 @@ namespace Wishlist.Infrastructure.Persistence.Repositories
             }
 
             var queryable = wishList.AsQueryable();
-            return queryable.Paginate<Product>(page, limit);
+            return queryable.Paginate(page, limit);
         }
 
     }

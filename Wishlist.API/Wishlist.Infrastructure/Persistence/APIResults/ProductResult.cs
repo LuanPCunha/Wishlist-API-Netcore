@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Wishlist.Infrastructure.Persistence.APIResults
+﻿namespace Wishlist.Infrastructure.Persistence.APIResults
 {
     [Serializable]
     public class ProductResult

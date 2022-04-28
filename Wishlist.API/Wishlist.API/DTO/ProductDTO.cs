@@ -1,15 +1,14 @@
-﻿using System;
-namespace Wishlist.API.DTO
+﻿namespace Wishlist.API.DTO
 {
     [Serializable]
     public class ProductDTO
     {
-        public float Price { get; set; }
-        public string Image { get; set; }
-        public Guid Id { get; set; }
-        public string Brand { get; set; }
-        public string Title { get; set; }
-        public float? ReviewScore { get; set; }
+        public float Price { get; set; } = float.MinValue;
+        public string Image { get; set; } = string.Empty;
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public string Brand { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
+        public float? ReviewScore { get; set; } = float.MinValue;
 
     }
 

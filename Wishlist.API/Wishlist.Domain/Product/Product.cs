@@ -5,9 +5,6 @@ namespace Wishlist.Domain.Product
 {
     public class Product : IEquatable<Product>
     {
-
-        #region Propriedades
-
         public Guid Id { get; private set; }
 
         public string Title { get; private set; }
@@ -18,8 +15,6 @@ namespace Wishlist.Domain.Product
 
         public float? ReviewScore { get; private set; }
 
-
-        #endregion
 
         private Product() { }
 

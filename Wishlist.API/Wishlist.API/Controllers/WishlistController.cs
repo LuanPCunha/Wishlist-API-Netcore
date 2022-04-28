@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Wishlist.Domain.Client;
-using Wishlist.Domain.Product;
 using Wishlist.Domain.User;
 
 namespace Wishlist.API.Controllers
@@ -10,13 +9,11 @@ namespace Wishlist.API.Controllers
     [Route("api/v1/[controller]")]
     public class WishlistController : ControllerBase
     {
-        private readonly IProductRepository _productRepository;
         private readonly IClientRepository _clientRepository;
         private readonly IUserRepository _userRepository;
 
-        public WishlistController(IProductRepository productRepository, IClientRepository clientRepository, IUserRepository userRepository)
+        public WishlistController(IClientRepository clientRepository, IUserRepository userRepository)
         {
-            _productRepository = productRepository;
             _clientRepository = clientRepository;
             _userRepository = userRepository;
         }

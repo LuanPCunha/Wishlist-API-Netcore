@@ -12,7 +12,7 @@ using Wishlist.Infrastructure.Persistence.Core;
 namespace Wishlist.Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220423002354_InitialDatabase")]
+    [Migration("20220428014718_InitialDatabase")]
     partial class InitialDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

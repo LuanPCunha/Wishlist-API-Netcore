@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace Wishlist.Domain.Core
+﻿namespace Wishlist.Domain.Core
 {
     public static class ExceptionCodes
     {
-        //Novos
+        
         public const string UserIdNotInformed = "User Id Not Informed";
         public const string UserNameNotInformed = "User Name Not Informed";
         public const string UserEmailNotInformed = "User Email Not Informed";

@@ -5,8 +5,6 @@ namespace Wishlist.Domain.User
 {
     public class User : IEquatable<User>
     {
-        #region Propriedades
-
         public Guid Id { get; private set; }
 
         public string Name { get; private set; }
@@ -16,8 +14,6 @@ namespace Wishlist.Domain.User
         public byte[] PasswordSalt { get; private set; }
 
         public byte[] PasswordHash { get; private set; }
- 
-        #endregion
 
         private User() { }
 

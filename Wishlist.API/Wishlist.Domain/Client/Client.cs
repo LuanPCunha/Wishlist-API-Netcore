@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Wishlist.Domain.Core;
 
 namespace Wishlist.Domain.Client
 {

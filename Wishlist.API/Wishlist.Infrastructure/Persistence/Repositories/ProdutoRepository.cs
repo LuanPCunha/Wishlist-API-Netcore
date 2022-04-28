@@ -1,25 +1,16 @@
-﻿using System;
-using System.Linq;
-using System.Text.Json;
-using System.Text.Json.Nodes;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using Wishlist.Domain.Core;
+﻿using Newtonsoft.Json;
 using Wishlist.Domain.Product;
 using Wishlist.Infrastructure.Persistence.APIResults;
-using Wishlist.Infrastructure.Persistence.Core;
-using Wishlist.Infrastructure.Persistence.Extensions;
 
 namespace Wishlist.Infrastructure.Persistence.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly Context _context;
         private readonly HttpClient _httpClient;
 
-        public ProductRepository(Context context, HttpClient httpClient)
+        public ProductRepository(HttpClient httpClient)
         {
-            _context = context;
+
             _httpClient = httpClient;
         }
 

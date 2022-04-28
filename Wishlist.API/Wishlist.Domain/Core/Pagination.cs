@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Wishlist.Domain.Core
+﻿namespace Wishlist.Domain.Core
 {
     public class Pagination<T>
     {

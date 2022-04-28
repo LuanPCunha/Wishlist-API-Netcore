@@ -16,7 +16,7 @@ namespace Wishlist.API.Controllers
         }
 
         [HttpPost("register"), AllowAnonymous]
-        public async Task<ActionResult> Register(UserDto request)
+        public ActionResult Register(UserDto request)
         {
             var emailInUse = _repository.EmailInUse(request.Email);
 
@@ -31,7 +31,7 @@ namespace Wishlist.API.Controllers
         }
 
         [HttpPost("login"), AllowAnonymous]
-        public async Task<ActionResult<string>> Login(LoginDto request)
+        public ActionResult<string> Login(LoginDto request)
         {
             var user = _repository.GetUserByEmail(request.Email);
 
